@@ -1,0 +1,29 @@
+<form action="" method="post" #form="ngForm" (ngSubmit)="sendEmail()">
+   
+    <div class="form-group">
+      <label for="exampleInputEmail1" class="mt-2">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" [(ngModel)]="admin.emailToId" name="emailtoid">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1" class="mt-2">Name</label>
+      <input type="text" class="form-control" id="exampleInputPassword1" placeholder="name"[(ngModel)]="admin.emailToName" name="emailToName">
+    </div>
+    <div class="form-group">
+        <label for="emailsubject" class="mt-2">EmailSubject</label>
+        <input type="text" class="form-control" id="emailsubject" placeholder="emailsubject" [(ngModel)]="admin.emailSubject" name="emailSubject">
+      </div>
+      <div class="form-group">
+        <label for="emailBody" class="mt-2">EmailBody</label>
+        <input type="text" class="form-control" id="emailBody" placeholder="emailBody" [(ngModel)]="admin.emailBody" name="emailBody">
+      </div>
+    
+
+
+
+
+
+
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+
+  </form>

@@ -1,0 +1,72 @@
+﻿@*@*@*@*@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.Account.Localization
+@model Acme.BookStore.Pages.Account.CustomLoginModel
+@inject IHtmlLocalizer<AccountResource> L
+@inject Volo.Abp.AspNetCore.Mvc.UI.Layout.IPageLayout PageLayout
+@{
+    PageLayout.Content.Title = L["Login"].Value;
+}
+
+@section styles{
+    <abp-style src="/Pages/Account/login.css" />
+}
+
+    @section scripts{
+    <abp-script src="/Pages/Account/login.js" />
+}
+
+    <div class="account-module-form">
+
+        <h1>
+            MY CUSTOM LOGIN
+        </h1>
+
+    @if (Model.EnableLocalLogin)
+    {
+        <form method="post">
+            <input asp-for="ReturnUrl" />
+            <input asp-for="ReturnUrlHash" />
+            <abp-input asp-for="LoginInput.UserNameOrEmailAddress" required-symbol="false" />
+            <abp-input asp-for="LoginInput.Password" required-symbol="false" />
+            <abp-row>
+                <abp-column>
+                    <abp-input asp-for="LoginInput.RememberMe" class="mb-4" />
+                </abp-column>
+                <abp-column class="text-right">
+                    <a href="@Url.Page("./ForgotPassword")">@L["ForgotPassword"]</a>
+                </abp-column>
+            </abp-row>
+            <abp-button button-type="Primary" size="Block" type="submit" class="mt-2 mb-3" name="Action" value="Login">@L["Login"]</abp-button>
+        </form>
+        @if (Model.IsSelfRegistrationEnabled)
+        {
+            @L["NotAMemberYet"]
+            <a href="@Url.Page("./Register", new {returnUrl = Model.ReturnUrl, returnUrlHash = Model.ReturnUrlHash})">@L["Register"]</a>
+        }
+    }
+
+    @if (Model.VisibleExternalProviders.Any())
+    {
+        <hr />
+        @L["OrSignInWith"]
+
+        <br />
+        <form asp-page="./Login" asp-page-handler="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" asp-route-returnUrlHash="@Model.ReturnUrlHash" method="post">
+            <input asp-for="ReturnUrl" />
+            <input asp-for="ReturnUrlHash" />
+            @foreach (var provider in Model.VisibleExternalProviders)
+            {
+                <abp-button type="submit" button-type="Outline_Primary" size="Small" class="mt-2 mr-2" name="provider" value="@provider.AuthenticationScheme">@provider.DisplayName</abp-button>
+            }
+        </form>
+    }
+
+    @if (!Model.EnableLocalLogin && !Model.VisibleExternalProviders.Any())
+    {
+        <div class="alert alert-warning">
+            <strong>Invalid login request</strong>
+            There are no login schemes configured for this client.
+        </div>
+    }
+</div>*@*@*@*@

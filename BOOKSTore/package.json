@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@volo/abp.ng.account": "^6.0.1"
+  }
+}
